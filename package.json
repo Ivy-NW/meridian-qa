@@ -1,0 +1,23 @@
+{
+  "name": "meridian-qa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ivy-NW/meridian-qa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Ivy-NW/meridian-qa/issues"
+  },
+  "homepage": "https://github.com/Ivy-NW/meridian-qa#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.61.0",
+    "@types/node": "^25.9.3"
+  }
+}
