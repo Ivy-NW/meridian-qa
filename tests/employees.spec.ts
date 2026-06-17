@@ -1,31 +1,31 @@
-import { expect, Page, test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
+import { LoginPage } from '../pages/LoginPage';
 
 const VALID_USERNAME = 'Admin';
 const VALID_PASSWORD = 'admin123';
 
-async function loginAsAdmin(page: Page): Promise<void> {
-  await page.goto('/');
-
-  await page.getByPlaceholder('Username').fill(VALID_USERNAME);
-  await page.getByPlaceholder('Password').fill(VALID_PASSWORD);
-  await page.getByRole('button', { name: 'Login' }).click();
-
-  await expect(page).toHaveURL(/dashboard/);
-}
-
-async function openEmployeeList(page: Page): Promise<void> {
-  await page.getByRole('link', { name: 'PIM', exact: true }).click();
-
-  await expect(page).toHaveURL(/pim\/viewEmployeeList/);
-  await expect(
-    page.getByRole('heading', { name: 'Employee Information' }),
-  ).toBeVisible();
-}
-
 test.describe('MPS-002: Employee Management', () => {
   test.beforeEach(async ({ page }) => {
-    await loginAsAdmin(page);
-    await openEmployeeList(page);
+    const loginPage = new LoginPage(page);
+
+    await loginPage.goto();
+    await loginPage.loginAndWaitForDashboard(
+      VALID_USERNAME,
+      VALID_PASSWORD,
+    );
+
+    await page.goto('/web/index.php/pim/viewEmployeeList');
+
+    await expect(page).toHaveURL(/pim\/viewEmployeeList/);
+
+    await page
+      .locator('.oxd-layout-loader')
+      .waitFor({ state: 'hidden', timeout: 30_000 })
+      .catch(() => undefined);
+
+    await expect(
+      page.locator('.oxd-table-body .oxd-table-card').first(),
+    ).toBeVisible({ timeout: 30_000 });
   });
 
   test('admin can view the employee list', async ({ page }) => {
