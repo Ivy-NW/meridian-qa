@@ -34,23 +34,25 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+
+    /* Keep videos only when a test fails so CI artifacts stay focused. */
+    video: 'retain-on-failure',
   },
 
-  /* Configure projects for major browsers */
+  /* Configure UI and API projects */
   projects: [
     {
       name: 'chromium',
+      testIgnore: /api\.spec\.ts/,
       use: { ...devices['Desktop Chrome'] },
     },
 
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      name: 'api',
+      testMatch: /api\.spec\.ts/,
+      use: {
+        baseURL: 'https://opensource-demo.orangehrmlive.com',
+      },
     },
 
     /* Test against mobile viewports. */
