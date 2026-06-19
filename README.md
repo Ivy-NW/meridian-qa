@@ -231,30 +231,6 @@ Run the TypeScript check:
 npx tsc --noEmit
 ```
 
----
-
-## Failure Evidence
-
-The Playwright configuration is set to collect debugging evidence when tests fail.
-
-Configured evidence includes:
-
-* screenshots on failure,
-* videos retained on failure,
-* traces on the first retry,
-* the Playwright HTML report.
-
-These files help determine whether a failure was caused by:
-
-* a selector,
-* application loading,
-* test data,
-* authentication,
-* environment instability,
-* an application defect.
-
----
-
 ## GitHub Actions Pipeline
 
 The GitHub Actions workflow is stored in:
@@ -311,24 +287,6 @@ This can affect:
 
 The tests use condition-based waits, but reliable test-data setup and cleanup would provide stronger isolation.
 
----
-
-## Recommended Next Steps
-
-In another sprint, the following improvements should be prioritised:
-
-1. Confirm and document the API authentication contract.
-2. Complete the three MPS-004 API scenarios.
-3. Add API-based test-data setup and cleanup.
-4. Introduce reusable fixtures for authenticated sessions.
-5. Reduce dependency on shared demonstration data.
-6. Add schema validation for API responses.
-7. Add accessibility and responsive-layout tests.
-8. Expand negative and boundary-value coverage.
-9. Add scheduled regression execution.
-10. Add environment-specific configuration and secure secret management.
-
----
 
 ## Current Delivery Status
 
